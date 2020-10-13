@@ -1,0 +1,3 @@
+﻿  Source.cpp
+d:\vsprojects\opencvlab1p2\opencvlab1p2\source.cpp(97): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  OpenCVLab1P2.vcxproj -> D:\VSProjects\OpenCVLab1P2\x64\Debug\OpenCVLab1P2.exe
