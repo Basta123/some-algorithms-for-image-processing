@@ -24,8 +24,7 @@ void show_histogram(string const& name, int *arrOfIntensity, Mat1b const& image)
 		line(hist_image, Point(b, 256 - height), Point(b, 256), Scalar::all(256)); 
 	}
 
-	imshow(name, hist_image); 
-	
+	imshow(name, hist_image);
 }
 
 void CalcHist(Mat &image, int Pixels[])
@@ -43,21 +42,15 @@ void CalcHist(Mat &image, int Pixels[])
 	}
 }
 
-
-
 int main()
 {
 	Mat original = imread("back.jpg", 0); 
-	namedWindow("girl.jpg", WINDOW_FREERATIO); 
+	namedWindow("back1.jpg", WINDOW_FREERATIO); 
 	Mat modified = imread("back.jpg", 0); 
-	namedWindow("girl2.jpg", WINDOW_FREERATIO); 
-
-
-
+	namedWindow("back2.jpg", WINDOW_FREERATIO); 
 
 	CalcHist(original, Original_Pixels);
 
-	// определяем оступы	
 	float FirstRange = 0;
 	float EndRange = 0;
 	int CountPixels = 0;
@@ -69,16 +62,10 @@ int main()
 
 	for (int i = 0; i < 256; i++)
 	{
-
-		
-
-		
-
 		if (CountPixels + Original_Pixels[i] < 1) 
 		{
 			CountPixels += Original_Pixels[i];
 		}
-		
 		else
 		{
 			FirstRange = i;
@@ -87,17 +74,13 @@ int main()
 		}
 	}
 
-
 	for (int i = 256; i > 0; i--)
 	{
 		
-		
-
 		if (CountPixels + Original_Pixels[i] <1) 
 		{
 			CountPixels += Original_Pixels[i];
 		}
-
 		else
 		{
 			CountPixels = 0;
@@ -106,40 +89,26 @@ int main()
 		}
 	}
 
-
-
-	// лиинейное растяжение
 	for (int x = 0; x < modified.rows; x++)  
 	{
 		for (int y = 0; y < modified.cols; y++) 
 		{
-
 			int PixelIntensity = modified.at<uchar>(x, y); 
 			PixelIntensity = (PixelIntensity - FirstRange) * (((float)255 - 0) / (EndRange - FirstRange));
 			modified.at<uchar>(x, y) = PixelIntensity; 
-
 		}
-		 
 	}
-
-
-
-
 
 	CalcHist(modified, Modified_Pixels);
 
-
-
-	imshow("girl.jpg", original); 
-	imshow("girl2.jpg", modified);
+	imshow("back1.jpg", original); 
+	imshow("back2.jpg", modified);
 
 	namedWindow("sample_hist", WINDOW_FREERATIO);
 	namedWindow("sample_hist2", WINDOW_FREERATIO);
 	show_histogram("sample_hist", Original_Pixels, original); 
 	show_histogram("sample_hist2", Modified_Pixels, modified);
 
-	
-	
 	waitKey();
 
 	return 0;

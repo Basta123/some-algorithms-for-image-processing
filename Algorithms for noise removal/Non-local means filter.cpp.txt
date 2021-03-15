@@ -15,13 +15,10 @@ Mat neighboursValues(int area, Mat& src, int x, int y);
 Mat myNLMeansFilter(Mat& src, Mat& dst, int diameter, double sigmaI);
 
 
-
-double gaussian(float x, double sigma) 
+double gaussian(float x, double sigma)
 {
 	return exp(-(pow(x, 2)) / (2 * pow(sigma, 2))) / (2 * CV_PI * pow(sigma, 2));
-
 }
-
 
 double normOfVector(Mat& vec1, Mat& vec2)
 {
@@ -32,9 +29,7 @@ double normOfVector(Mat& vec1, Mat& vec2)
 	}
 	norm = sqrt(norm);
 	return norm;
-
 }
-
 
 Mat neighboursValues(int area, Mat& src, int x, int y)
 {
@@ -46,12 +41,12 @@ Mat neighboursValues(int area, Mat& src, int x, int y)
 			int LocalX = (x - (area - 1) / 2) + j;
 
 			int LocalY = (y - (area - 1) / 2) + i;
-			
+
 			if (LocalX < 0)
 			{
 				LocalX = 0;
 			}
-			if (LocalY<0)
+			if (LocalY < 0)
 			{
 				LocalY = 0;
 			}
@@ -65,15 +60,15 @@ Mat neighboursValues(int area, Mat& src, int x, int y)
 
 void nonLocalMeans(Mat& src, Mat& dst, int x, int y, int diameter, double sigmaI, int height, int width)
 {
-	double iFiltered = 0; 
+	double iFiltered = 0;
 	double wP = 0;
 	int xNeighbor = 0;
 	int yNeighbor = 0;
 	int half = diameter / 2;
 
-	for (int i = 0; i < diameter; i++) 
+	for (int i = 0; i < diameter; i++)
 	{
-		for (int j = 0; j < diameter; j++) 
+		for (int j = 0; j < diameter; j++)
 		{
 			xNeighbor = x - (i - half);
 			yNeighbor = y - (j - half);
@@ -101,10 +96,8 @@ void nonLocalMeans(Mat& src, Mat& dst, int x, int y, int diameter, double sigmaI
 	dst.at<uchar>(x, y) = (uchar)iFiltered;
 }
 
-Mat myNLMeansFilter(Mat& src, Mat& dst, int diameter, double sigmaI) 
+Mat myNLMeansFilter(Mat& src, Mat& dst, int diameter, double sigmaI)
 {
-	
-	
 	for (int i = 0; i < dst.cols; i++)
 	{
 		for (int j = 0; j < dst.rows; j++)
@@ -125,13 +118,7 @@ void noising(Mat &src)
 	{
 		for (int y = 0; y < src.rows; y++)
 		{
-
-
-			
 			src.at<uchar>(x, y) += dist(generator);
-			
-
-
 		}
 	}
 }
@@ -142,11 +129,9 @@ int main()
 	Mat srcNoNoize;
 	srcNoNoize = imread("Lenna.png", IMREAD_GRAYSCALE);
 
-
 	Mat srcWithNoize;
 	srcWithNoize = imread("Lenna.png", IMREAD_GRAYSCALE);
-	
-	
+
 	noising(srcWithNoize);
 	imshow("origNoNoize", srcNoNoize);
 	imshow("origWithNoize", srcWithNoize);
@@ -154,19 +139,14 @@ int main()
 	Mat NLMeansTest;
 	srcWithNoize.copyTo(NLMeansTest);
 
-	
-
 	Mat NLMeansTestOpenCV;
 	srcWithNoize.copyTo(NLMeansTestOpenCV);
 
-	
-
 	Mat NLMeansFilteredImage = myNLMeansFilter(NLMeansTest, NLMeansTestOpenCV, 12, 20);
-	
+
 	imshow("MyNLM", NLMeansFilteredImage);
 
 	int sum = 0;
-
 	for (int x = 0; x < srcNoNoize.rows; x++)
 	{
 		for (int y = 0; y < srcNoNoize.cols; y++)
@@ -177,23 +157,19 @@ int main()
 			{
 				difference = difference * -1;
 				sum += difference;
-
 			}
 			else
 			{
 				sum += difference;
-
 			}
-
 		}
-
-
 	}
+
 	int average = 0;
 	average = sum / (srcNoNoize.rows*srcNoNoize.cols);
 
 	cout << average << endl;
-	
+
 	waitKey(0);
 }
 

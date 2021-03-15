@@ -1,6 +1,0 @@
-﻿  Source.cpp
-d:\vsprojects\opencvlab1p1\opencvlab1p1\source.cpp(65): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-d:\vsprojects\opencvlab1p1\opencvlab1p1\source.cpp(83): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\vsprojects\opencvlab1p1\opencvlab1p1\source.cpp(103): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\vsprojects\opencvlab1p1\opencvlab1p1\source.cpp(117): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  OpenCVLab1P1.vcxproj -> D:\VSProjects\OpenCVLab1P1\x64\Debug\OpenCVLab1P1.exe

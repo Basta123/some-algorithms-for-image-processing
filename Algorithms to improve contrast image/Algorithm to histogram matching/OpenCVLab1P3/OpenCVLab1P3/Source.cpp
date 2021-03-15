@@ -12,7 +12,6 @@ using namespace cv;
 
 void show_histogram(string const& name, int *arrOfPixels) 
 {
-
 	int *MaxNumOfPixels = max_element(arrOfPixels, arrOfPixels + 255); 
 	
 	Mat3b hist_image = Mat3b::zeros(256, 256);  
@@ -25,7 +24,6 @@ void show_histogram(string const& name, int *arrOfPixels)
 	}
 
 	imshow(name, hist_image); 
-
 }
 
 void show_histogram_cumulative(string const& name, int *arrOfIntensity, int TotalPixels)
@@ -42,7 +40,6 @@ void show_histogram_cumulative(string const& name, int *arrOfIntensity, int Tota
 	}
 
 	imshow(name, hist_image);
-
 }
 
 void CalcHist(Mat &image, int Pixels[])
@@ -51,10 +48,8 @@ void CalcHist(Mat &image, int Pixels[])
 	{
 		for (int y = 0; y < image.cols; y++)
 		{
-
 			int PixelIntensity = image.at<uchar>(x, y);
 			Pixels[PixelIntensity] = Pixels[PixelIntensity] + 1;
-
 		}
 	}
 }
@@ -76,7 +71,6 @@ void EqualizeHist(int totalcount, int CPMultiplied_rounded[],int Pixels[])
 	for (int i = 0; i < 256; i++)
 	{
 		probability[i] = (float)Pixels[i] / totalcount;
-
 	}
 
 	float CumulativeProbability = 0;
@@ -87,7 +81,6 @@ void EqualizeHist(int totalcount, int CPMultiplied_rounded[],int Pixels[])
 		CumulativeProbability += probability[i];
 		CPMultiplied[i] = 255 * CumulativeProbability;
 		CPMultiplied_rounded[i] = round(CPMultiplied[i]);
-
 	}
 }
 
@@ -101,14 +94,11 @@ void Hist_matching(int Original_CPMultiplied_rounded[], int Specified_CPMultipli
 
 		for (int j = 0; j < 256; j++)
 		{
-
-			
 			bool equal = Original_CPMultiplied_rounded[i] == Specified_CPMultiplied_rounded[j];
 			if (equal)
 			{
 				Original_CPMultiplied_rounded[i] = j;
 				break;
-
 			}
 			else
 			{
@@ -116,12 +106,10 @@ void Hist_matching(int Original_CPMultiplied_rounded[], int Specified_CPMultipli
 				{
 					if (PlusOrMinus)
 					{
-
 						original_CPMultiplied_roundedPlus += 1;
 						Original_CPMultiplied_rounded[i] = original_CPMultiplied_roundedPlus;
 
 						PlusOrMinus = false;
-
 					}
 					else
 					{
@@ -131,20 +119,15 @@ void Hist_matching(int Original_CPMultiplied_rounded[], int Specified_CPMultipli
 					}
 
 					j = -1;
-
-
 				}
 			}
 		}
-
-
 	}
 }
 
 
 int main()
 {
-
 	Mat original = imread("sample.png", 0);
 	namedWindow("sample", WINDOW_FREERATIO);
 
@@ -171,19 +154,15 @@ int main()
 	{
 		for (int y = 0; y < original.cols; y++)
 		{
-
 			int IntensityPixel = original.at<uchar>(x, y); 
 			original.at<uchar>(x, y) = Original_CPMultiplied_rounded[IntensityPixel]; 
-			
-
 		}
 		
 	}
 
 	for (int x = 0; x < 256; x++)
 	{
-		
-			Original_Pixels[x] = 0; 
+		Original_Pixels[x] = 0; 
 	}
 
 	CalcHist(original, Original_Pixels);
@@ -201,14 +180,11 @@ int main()
 	namedWindow("sample_hist_cumulative", WINDOW_FREERATIO);
 	namedWindow("sample_hist_cumulative2", WINDOW_FREERATIO);
 	
-		
 	show_histogram("sample_hist", Original_Pixels);
 	show_histogram("sample_hist2", Specified_Pixels);
 
 	show_histogram_cumulative("sample_hist_cumulative", CumulativeIntensity_Original, original_totalcount);
 	show_histogram_cumulative("sample_hist_cumulative2", CumulativeIntensity_Modified, specified_totalcount);
-
-	
 
 	waitKey();
 
