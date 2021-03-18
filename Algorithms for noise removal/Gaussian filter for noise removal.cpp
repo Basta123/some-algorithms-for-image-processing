@@ -104,11 +104,9 @@ void noising(Mat &src)
 		{
 			uchar value = dist(generator);
 			src.at<uchar>(x, y) += dist(generator);
-
 		}
 	}
 }
-
 int main()
 {
 	Mat srcNoNoize;
@@ -153,8 +151,9 @@ int main()
 
 	int average = 0;
 	average = sum / (srcNoNoize.rows*srcNoNoize.cols);
-	cout << average << endl;
-	waitKey(0);
 
+	cout << average << endl;
+
+	waitKey(0);
 }
 
