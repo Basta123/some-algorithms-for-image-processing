@@ -14,7 +14,6 @@ double normOfVector(Mat& vec1, Mat& vec2);
 Mat neighboursValues(int area, Mat& src, int x, int y);
 Mat myNLMeansFilter(Mat& src, Mat& dst, int diameter, double sigmaI);
 
-
 double gaussian(float x, double sigma)
 {
 	return exp(-(pow(x, 2)) / (2 * pow(sigma, 2))) / (2 * CV_PI * pow(sigma, 2));
@@ -108,7 +107,6 @@ Mat myNLMeansFilter(Mat& src, Mat& dst, int diameter, double sigmaI)
 	return dst;
 }
 
-
 void noising(Mat &src)
 {
 	normal_distribution<double> dist(0.0, 10.0);
@@ -122,7 +120,6 @@ void noising(Mat &src)
 		}
 	}
 }
-
 
 int main()
 {
@@ -143,7 +140,6 @@ int main()
 	srcWithNoize.copyTo(NLMeansTestOpenCV);
 
 	Mat NLMeansFilteredImage = myNLMeansFilter(NLMeansTest, NLMeansTestOpenCV, 12, 20);
-
 	imshow("MyNLM", NLMeansFilteredImage);
 
 	int sum = 0;
@@ -151,7 +147,6 @@ int main()
 	{
 		for (int y = 0; y < srcNoNoize.cols; y++)
 		{
-
 			int difference = srcNoNoize.at<uchar>(x, y) - NLMeansFilteredImage.at<uchar>(x, y);
 			if (difference < 0)
 			{
